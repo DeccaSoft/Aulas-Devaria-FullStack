@@ -1,4 +1,6 @@
 ﻿using System;
+using System.Collections.Generic;
+using System.Linq;
 
 namespace DevariaAula5
 {
@@ -6,8 +8,22 @@ namespace DevariaAula5
     {
         static void Main(string[] args)
         {
+            int idade = 0;
             Console.WriteLine("Digite sua Idade");
-            int idade = Convert.ToInt32(Console.ReadLine());
+            try
+            {
+                idade = Convert.ToInt32(Console.ReadLine());
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine("Ooops! Aconteceu a seguinte Exceção: " + e.Message);
+                Console.WriteLine("Provavelmente vc não digitou um número válido!");
+                Console.WriteLine("O programa Não será interrompido, portanto os dados não são válidos!");
+            }
+            finally
+            {
+                Console.WriteLine("Continuando...");
+            }
 
             if(idade >= 18)
             {
@@ -45,7 +61,8 @@ namespace DevariaAula5
 
             void ExemploForEach()
             {
-                string[] jogadores = { "Fulano", "Sicrano", "Beltrano" };
+                //string[] jogadores = { "Fulano", "Sicrano", "Beltrano" };
+                List<string> jogadores = new List<string>() { "Fulano", "Sicrano", "Beltrano" };
 
                 foreach(string jogador in jogadores)
                 {
@@ -82,6 +99,13 @@ namespace DevariaAula5
                     Console.WriteLine("Novo Do While");
                 } while (varDoWhile < 10);
             }
+
+            //Aula 2.4
+
+            int[] notas = { 90, 71, 82, 93, 75, 82 };
+            int qtdNotasAcima80 = notas.Where(notas => notas > 80).Count();
+
+            Console.WriteLine($"{qtdNotasAcima80} notas acima de 80");
         }
     }
 }
