@@ -6,6 +6,8 @@ namespace DevariaAula1
     {
         static void Main(string[] args)
         {
+            //Aula 01
+
             const string OLA = "Olá, ";
             string nomeCompleto;
             int idade;
@@ -15,6 +17,46 @@ namespace DevariaAula1
             idade = Convert.ToInt32(Console.ReadLine());
             Console.WriteLine(OLA + nomeCompleto + "!");
             Console.WriteLine("Sua Idade Atual: " + idade);
+
+            //Aula 02
+
+            bool valido = true;
+            bool invalido = !valido;
+            Console.WriteLine("Válido:"  + valido);
+            Console.WriteLine("Inválido:"  + invalido);
+            Console.WriteLine("Não Inválido:"  + !invalido);
+
+            if(idade == 47 && nomeCompleto == "André Morais de Azevedo")
+            {
+                Console.WriteLine(nomeCompleto + ", você é o cara!!!");
+            }
+            else if (nomeCompleto.Contains("André") || nomeCompleto.Contains("Morais") || nomeCompleto.Contains("Azevedo"))
+            {
+                Console.WriteLine(nomeCompleto + ", você pode ser o cara!!!");
+            }
+            else
+            {
+                Console.WriteLine("Show de Bola");
+            }
+
+            switch (nomeCompleto)
+            {
+                case "André":
+                case "Andre":
+                    Console.WriteLine("Você pode ser o Cara!");
+                    break;
+                case "André Morais":
+                case "Andre Morais":
+                    Console.WriteLine("Acho que você é o Cara!");
+                    break;
+                case "André Morais de Azevedo":
+                case "Andre Morais de Azevedo":
+                    Console.WriteLine("Você é o Cara!");
+                    break;
+                default:
+                    Console.WriteLine("Quase!!!");
+                    break;
+            }
         }
     }
 }
