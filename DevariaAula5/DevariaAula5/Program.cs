@@ -25,6 +25,63 @@ namespace DevariaAula5
             {
                 Console.WriteLine("Você ainda Não pode votar");
             }
+
+            ExemploFor();
+            ExemploForEach();
+            ExemploWhile();
+            ExemploDoWhile();
+
+            //Aula 2.3
+
+            void ExemploFor()
+            {
+                string[] jogadores = { "Fulano", "Sicrano", "Beltrano" };
+
+                for (int i = 0; i <= 2; i++)
+                {
+                    Console.WriteLine("Jogador: " + jogadores[i]);
+                }
+            }
+
+            void ExemploForEach()
+            {
+                string[] jogadores = { "Fulano", "Sicrano", "Beltrano" };
+
+                foreach(string jogador in jogadores)
+                {
+                    Console.WriteLine("Bem Vindo, " + jogador);
+                }
+            }
+            
+            void ExemploWhile()
+            {
+                int varWhile = 1;
+                while (varWhile <= 10)
+                {
+                    Console.WriteLine(varWhile);
+                    varWhile++;
+                }
+
+                while(varWhile < 10)
+                {
+                    Console.WriteLine("Novo While");
+                }
+            }
+
+            void ExemploDoWhile()
+            {
+                int varDoWhile = 1;
+                do
+                {
+                    Console.WriteLine(varDoWhile);
+                    varDoWhile++;
+                } while (varDoWhile <= 10);
+
+                do
+                {
+                    Console.WriteLine("Novo Do While");
+                } while (varDoWhile < 10);
+            }
         }
     }
 }
