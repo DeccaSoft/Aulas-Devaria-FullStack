@@ -1,0 +1,25 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 16
+VisualStudioVersion = 16.0.32802.440
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Deccagram", "Deccagram\Deccagram.csproj", "{B21A5C73-2F29-4070-BB99-ED66E8CC2622}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{B21A5C73-2F29-4070-BB99-ED66E8CC2622}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{B21A5C73-2F29-4070-BB99-ED66E8CC2622}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{B21A5C73-2F29-4070-BB99-ED66E8CC2622}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{B21A5C73-2F29-4070-BB99-ED66E8CC2622}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {B422E9C9-28C0-427D-8912-A4D790343721}
+	EndGlobalSection
+EndGlobal
