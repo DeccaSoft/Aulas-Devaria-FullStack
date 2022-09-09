@@ -2,7 +2,7 @@
   "$schema": "http://json.schemastore.org/launchsettings.json",
   "iisSettings": {
     "windowsAuthentication": false,
-    "anonymousAuthentication": true,
+    "anonymousAuthentication": false,   //Alterado para False para se ter mais Segurança. Só onde tiver AllowAnonymous ficará aberta
     "iisExpress": {
       "applicationUrl": "http://localhost:46865",
       "sslPort": 44370
