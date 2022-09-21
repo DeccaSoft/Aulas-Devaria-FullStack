@@ -3,6 +3,10 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Deccagram.DTOs;
+using Deccagram.Models;
+using Deccagram.Repository;
+using Deccagram.Services;
+using Deccagram.Utils;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
@@ -15,10 +19,12 @@ namespace Deccagram.Controllers
     public class LoginController : ControllerBase
     {
         private readonly ILogger<LoginController> _logger;  //Utiliza-se Log's para controle de erros
+        private readonly IUsuarioRepository _usuarioRepository;
 
-        public LoginController(ILogger<LoginController> logger) //No construtor já se instancia um Objeto de Log
+        public LoginController(ILogger<LoginController> logger, IUsuarioRepository usuarioRepository) //No construtor já se instancia um Objeto de Log
         {
             _logger = logger;
+            _usuarioRepository = usuarioRepository;
         }
 
         [HttpPost]          //Usas-se Post para Logins
@@ -28,7 +34,37 @@ namespace Deccagram.Controllers
         {
             try
             {
-                throw new ArgumentException("Erro ao Preencher os Dados");
+                if (!String.IsNullOrEmpty(loginRequisicao.Senha) && !String.IsNullOrEmpty(loginRequisicao.Email)
+                     && !String.IsNullOrWhiteSpace(loginRequisicao.Senha) && !String.IsNullOrWhiteSpace(loginRequisicao.Email))
+                {
+                    Usuario usuario = _usuarioRepository.GetUsuarioPorLoginSenha(loginRequisicao.Email.ToLower(), MD5Utils.GerarHashMD5(loginRequisicao.Senha));
+                    
+                    if (usuario != null)
+                    {
+                        return Ok(new LoginRespostaDTO()
+                        {
+                            Email = usuario.Email,
+                            Nome = usuario.Nome,
+                            Token = TokenService.CriarToken(usuario)
+                        });
+                    }
+                    else
+                    {
+                        return BadRequest(new ErrorRespostaDTO()
+                        {
+                            Descricao = "Login e/ou Senha Inválido(a)!",
+                            Status = StatusCodes.Status400BadRequest
+                        });
+                    }
+                }
+                else
+                {
+                    return BadRequest(new ErrorRespostaDTO()
+                    {
+                        Descricao = "Atenção, Preencha os Campos de Login Corretamente!",
+                        Status = StatusCodes.Status400BadRequest
+                    });
+                }
             }
             catch (Exception e)
             {
