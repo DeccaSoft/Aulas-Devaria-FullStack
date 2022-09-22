@@ -15,6 +15,12 @@ namespace Deccagram.Repository.Impl
             _context = context;
         }
 
+        public void AtualizarUsuario(Usuario usuario)
+        {
+            _context.Update(usuario);
+            _context.SaveChanges();
+        }
+
         public Usuario GetUsuarioPorId(int id)
         {
             return _context.Usuarios.FirstOrDefault(u => u.Id == id);

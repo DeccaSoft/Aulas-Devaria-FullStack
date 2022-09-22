@@ -51,6 +51,49 @@ namespace Deccagram.Controllers
             }
         }
 
+        [HttpPut]
+        public IActionResult AtualizarUsuario([FromForm] UsuarioRequisicaoDTO usuarioDTO)
+        {
+            try
+            {
+                Usuario usuario = LerToken();
+                if (usuarioDTO != null)
+                {
+                    var erros = new List<string>();
+                    if (string.IsNullOrEmpty(usuarioDTO.Nome) || string.IsNullOrWhiteSpace(usuarioDTO.Nome))
+                    {
+                        erros.Add("Nome Inválido!");
+                    }
+
+                    if (erros.Count > 0)
+                    {
+                        return BadRequest(new ErrorRespostaDTO()
+                        {
+                            Status = StatusCodes.Status400BadRequest,
+                            Erros = erros
+                        });
+                    }
+                    else
+                    {
+                        CosmicService cosmicService = new CosmicService();
+                        usuario.FotoPerfil = cosmicService.EnviarImagem(new ImagemDTO{ Imagem = usuarioDTO.FotoPerfil, Nome = usuarioDTO.Nome.Replace(" ", "") });
+                        usuario.Nome = usuarioDTO.Nome;
+                        _usuarioRepository.AtualizarUsuario(usuario);
+                    }
+                }
+                return Ok("Usuário atualizado com Sucesso");
+            }
+            catch (Exception e)
+            {
+                _logger.LogError("Ocorreu um Erro ao Salvar Usuário!");
+                return StatusCode(StatusCodes.Status500InternalServerError, new ErrorRespostaDTO()
+                {
+                    Descricao = "Ocorreu o Seguinte Erro: " + e.Message,
+                    Status = StatusCodes.Status500InternalServerError
+                });
+            }
+        }
+
         [HttpPost]
         [AllowAnonymous]
         public IActionResult SalvarUsuario([FromForm] UsuarioRequisicaoDTO usuarioDTO)  //Alterado de FromBody para FromForm
