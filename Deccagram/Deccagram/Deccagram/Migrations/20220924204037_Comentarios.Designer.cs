@@ -4,14 +4,16 @@ using Deccagram.Models;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace Deccagram.Migrations
 {
     [DbContext(typeof(DeccagramContext))]
-    partial class DeccagramContextModelSnapshot : ModelSnapshot
+    [Migration("20220924204037_Comentarios")]
+    partial class Comentarios
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -42,28 +44,6 @@ namespace Deccagram.Migrations
                     b.HasIndex("IdUsuario");
 
                     b.ToTable("Comentarios");
-                });
-
-            modelBuilder.Entity("Deccagram.Models.Curtida", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int")
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
-
-                    b.Property<int>("IdPublicacao")
-                        .HasColumnType("int");
-
-                    b.Property<int>("IdUsuario")
-                        .HasColumnType("int");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("IdPublicacao");
-
-                    b.HasIndex("IdUsuario");
-
-                    b.ToTable("Curtidas");
                 });
 
             modelBuilder.Entity("Deccagram.Models.Publicacao", b =>
@@ -136,25 +116,6 @@ namespace Deccagram.Migrations
                 });
 
             modelBuilder.Entity("Deccagram.Models.Comentario", b =>
-                {
-                    b.HasOne("Deccagram.Models.Publicacao", "Publicacao")
-                        .WithMany()
-                        .HasForeignKey("IdPublicacao")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.HasOne("Deccagram.Models.Usuario", "Usuario")
-                        .WithMany()
-                        .HasForeignKey("IdUsuario")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("Publicacao");
-
-                    b.Navigation("Usuario");
-                });
-
-            modelBuilder.Entity("Deccagram.Models.Curtida", b =>
                 {
                     b.HasOne("Deccagram.Models.Publicacao", "Publicacao")
                         .WithMany()

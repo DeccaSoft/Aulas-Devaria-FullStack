@@ -45,6 +45,10 @@ namespace Deccagram
             services.AddDbContext<DeccagramContext>(option => option.UseSqlServer(connectionString));
 
             services.AddScoped<IUsuarioRepository, UsuarioRepositoryImpl>();
+            services.AddScoped<ISeguidorRepository, SeguidorRepositoryImpl>();
+            services.AddScoped<IPublicacaoRepository, PublicacaoRepositoryImpl>();
+            services.AddScoped<IComentarioRepository, ComentarioRepositoryImpl>();
+            services.AddScoped<ICurtidaRepository, CurtidaRepositoryImpl>();
 
             var chaveCriptografia = Encoding.ASCII.GetBytes(ChaveJWT.ChaveSecreta);
             services.AddAuthentication(auth =>

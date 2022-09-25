@@ -4,14 +4,16 @@ using Deccagram.Models;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace Deccagram.Migrations
 {
     [DbContext(typeof(DeccagramContext))]
-    partial class DeccagramContextModelSnapshot : ModelSnapshot
+    [Migration("20220925105214_Curtidas")]
+    partial class Curtidas
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
