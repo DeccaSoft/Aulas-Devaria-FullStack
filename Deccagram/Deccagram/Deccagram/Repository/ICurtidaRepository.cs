@@ -1,4 +1,5 @@
 ﻿using Deccagram.Models;
+using System.Collections.Generic;
 
 namespace Deccagram.Repository
 {
@@ -7,5 +8,6 @@ namespace Deccagram.Repository
         public void Curtir(Curtida curtida);
         public void Descurtir(Curtida curtida);
         public Curtida GetCurtida(int idPublicacao, int idUsuario);
+        List<Curtida> GetCurtidaPorPublicacao(int idPublicacao);
     }
 }

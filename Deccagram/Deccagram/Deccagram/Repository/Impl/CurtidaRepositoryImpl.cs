@@ -1,4 +1,5 @@
 ﻿using Deccagram.Models;
+using System.Collections.Generic;
 using System.Linq;
 
 namespace Deccagram.Repository.Impl
@@ -26,6 +27,11 @@ namespace Deccagram.Repository.Impl
         public Curtida GetCurtida(int idPublicacao, int idUsuario)
         {
             return _context.Curtidas.FirstOrDefault(c => c.IdPublicacao == idPublicacao && c.IdUsuario == idUsuario);
+        }
+
+        public List<Curtida> GetCurtidaPorPublicacao(int idPublicacao)
+        {
+            return _context.Curtidas.Where(c => c.IdPublicacao == idPublicacao).ToList();
         }
     }
 }
