@@ -14,6 +14,6 @@ namespace Deccagram.Repository
         public void Salvar(Usuario usuario);
         public bool VerificarEmail(string email);
         public void AtualizarUsuario(Usuario usuario);
-
+        List<Usuario> GetUsuariosPorNome(string nome);
     }
 }

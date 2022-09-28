@@ -17,14 +17,19 @@ namespace Deccagram.Controllers
     [Route("api/[controller]")]
     public class UsuarioController : BaseController //Alterado de ControllerBase para BaseController para Authorize Geral
     {
-        public readonly ILogger<UsuarioController> _logger;
+        private readonly ILogger<UsuarioController> _logger;
         //public readonly IUsuarioRepository _usuarioRepository; //Agora o UsuarioRepository já existe na BaseController
+        private readonly IPublicacaoRepository _publicacaoRepository;
+        private readonly ISeguidorRepository _seguidorRepository;
 
         public UsuarioController(ILogger<UsuarioController> logger, 
-            IUsuarioRepository usuarioRepository) : base(usuarioRepository)
+            IUsuarioRepository usuarioRepository, 
+            IPublicacaoRepository publicacaoRepository, ISeguidorRepository seguidorRepository) : base(usuarioRepository)
         {
             _logger = logger;
             //_usuarioRepository = usuarioRepository;
+            _publicacaoRepository = publicacaoRepository;
+            _seguidorRepository = seguidorRepository;
         }
 
         [HttpGet]
@@ -157,6 +162,77 @@ namespace Deccagram.Controllers
             catch (Exception e)
             {
                 _logger.LogError("Ocorreu um Erro ao Salvar Usuário!");
+                return StatusCode(StatusCodes.Status500InternalServerError, new ErrorRespostaDTO()
+                {
+                    Descricao = "Ocorreu o Seguinte Erro: " + e.Message,
+                    Status = StatusCodes.Status500InternalServerError
+                });
+            }
+        }
+
+        [HttpGet]
+        [Route("pesquisaid")]
+        public IActionResult PesquisaUsuarioPorId(int idUsuario)
+        {
+            try
+            {
+                Usuario usuario = _usuarioRepository.GetUsuarioPorId(idUsuario);
+                int qtdPublicacoes = _publicacaoRepository.GetQtdPublicacoes(idUsuario);
+                int qtdSeguidores = _seguidorRepository.GetQtdSeguidores(idUsuario);
+                int qtdSeguindo = _seguidorRepository.GetQtdSeguindo(idUsuario);
+                return Ok(new UsuarioRespostaDTO
+                {
+                    Nome = usuario.Nome,
+                    Email = usuario.Email,
+                    Avatar = usuario.FotoPerfil,
+                    IdUsuario = usuario.Id,
+                    QtdPublicacoes = qtdPublicacoes,
+                    QtdSeguidores = qtdSeguidores,
+                    QtdSeguindo= qtdSeguindo                    
+                });
+            }
+            catch (Exception e)
+            {
+                _logger.LogError("Ocorreu um Erro ao Pesquisar o Usuário!");
+                return StatusCode(StatusCodes.Status500InternalServerError, new ErrorRespostaDTO()
+                {
+                    Descricao = "Ocorreu o Seguinte Erro: " + e.Message,
+                    Status = StatusCodes.Status500InternalServerError
+                });
+            }
+        }
+
+        [HttpGet]
+        [Route("pesquisanome")]
+        public IActionResult PesquisaUsuarioPorNome(string nome)
+        {
+            try
+            {
+                List<Usuario> usuarios = _usuarioRepository.GetUsuariosPorNome(nome);
+                List<UsuarioRespostaDTO> usuariosRespostas = new List<UsuarioRespostaDTO>();
+                foreach(Usuario usuario in usuarios)
+                {
+                    int qtdPublicacoes = _publicacaoRepository.GetQtdPublicacoes(usuario.Id);
+                    int qtdSeguidores = _seguidorRepository.GetQtdSeguidores(usuario.Id);
+                    int qtdSeguindo = _seguidorRepository.GetQtdSeguindo(usuario.Id);
+                    usuariosRespostas.Add(new UsuarioRespostaDTO
+                    {
+                        Nome = usuario.Nome,
+                        Email = usuario.Email,
+                        Avatar = usuario.FotoPerfil,
+                        IdUsuario = usuario.Id,
+                        QtdPublicacoes = qtdPublicacoes,
+                        QtdSeguidores = qtdSeguidores,
+                        QtdSeguindo = qtdSeguindo
+                    });
+
+                }
+
+                return Ok(usuariosRespostas);
+            }
+            catch (Exception e)
+            {
+                _logger.LogError("Ocorreu um Erro ao Pesquisar o Usuário!");
                 return StatusCode(StatusCodes.Status500InternalServerError, new ErrorRespostaDTO()
                 {
                     Descricao = "Ocorreu o Seguinte Erro: " + e.Message,

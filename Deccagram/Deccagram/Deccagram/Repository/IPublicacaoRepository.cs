@@ -9,5 +9,6 @@ namespace Deccagram.Repository
         public void Publicar(Publicacao publicacao);
         List<PublicacaoFeedRespostaDTO> GetPublicacoesFeed(int idUsuario);
         List<PublicacaoFeedRespostaDTO> GetPublicacoesFeedUsuario(int idUsuario);
+        int GetQtdPublicacoes(int idUsuario);
     }
 }

@@ -1,6 +1,7 @@
 ﻿using Deccagram.DTOs;
 using Deccagram.Models;
 using System.Collections.Generic;
+using System.Linq;
 
 namespace Deccagram.Repository.Impl
 {
@@ -47,6 +48,11 @@ namespace Deccagram.Repository.Impl
                     IdUsuario = publicacoes.IdUsuario
                 };
             return feedUsuario.ToList();
+        }
+
+        public int GetQtdPublicacoes(int idUsuario)
+        {
+            return _context.Publicacoes.Count(p => p.IdUsuario == idUsuario);
         }
     }
 }

@@ -44,5 +44,15 @@ namespace Deccagram.Repository.Impl
         {
             return _context.Seguidores.FirstOrDefault(s => s.IdUsuarioSeguidor == idSeguidor && s.IdUsuarioSeguido == idDSeguido);
         }
+
+        public int GetQtdSeguidores(int idUsuario)
+        {
+            return _context.Seguidores.Count(s => s.IdUsuarioSeguido == idUsuario);
+        }
+
+        public int GetQtdSeguindo(int idUsuario)
+        {
+            return _context.Seguidores.Count(s => s.IdUsuarioSeguidor == idUsuario);
+        }
     }
 }

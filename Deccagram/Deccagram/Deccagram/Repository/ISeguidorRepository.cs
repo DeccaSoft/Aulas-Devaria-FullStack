@@ -7,5 +7,7 @@ namespace Deccagram.Repository
         public bool Seguir(Seguidor seguidor);
         public bool DesSeguir(Seguidor seguidor);
         public Seguidor GetSeguidor(int idSeguidor, int idDSeguido);
+        int GetQtdSeguidores(int idUsuario);
+        int GetQtdSeguindo(int idUsuario);
     }
 }
